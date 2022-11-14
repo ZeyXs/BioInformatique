@@ -1,6 +1,5 @@
 def main():
-    print("Hello, Bio!")
- 
-   
+    print("Hello, Mec!")
+
 if __name__ == "__main__":
     main()
