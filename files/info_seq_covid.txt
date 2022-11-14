@@ -1,0 +1,150 @@
+Pangolin coronavirus (Viruses, Riboviria, Orthornavirae, Pisuviricota, Pisoniviricetes, Nidovirales, Cornidovirineae, Coronaviridae, Orthocoronavirinae, Betacoronavirus, Sarbecovirus)
+   - Numero d'accession : MT121216
+   - Date de création : 21-JUN-2021
+   - Nombre de gènes présents : 11
+   - Pourcentage de GC : 38.19%
+   - Liste des gènes : 
+      - Nom : orf1ab
+        ├──Début : 145
+        ├──Fin : 21414
+        └──Id protéine : QIG55944.1
+      - Nom : S
+        ├──Début : 21420
+        ├──Fin : 25218
+        └──Id protéine : QIG55945.1
+      - Nom : ORF3
+        ├──Début : 25226
+        ├──Fin : 26054
+        └──Id protéine : QIG55946.1
+      - Nom : E
+        ├──Début : 26078
+        ├──Fin : 26306
+        └──Id protéine : QIG55947.1
+      - Nom : M
+        ├──Début : 26356
+        ├──Fin : 27025
+        └──Id protéine : QIG55948.1
+      - Nom : ORF6
+        ├──Début : 27035
+        ├──Fin : 27221
+        └──Id protéine : QIG55949.1
+      - Nom : ORF7a
+        ├──Début : 27227
+        ├──Fin : 27593
+        └──Id protéine : QIG55950.1
+      - Nom : ORF7b
+        ├──Début : 27589
+        ├──Fin : 27721
+        └──Id protéine : QIG55951.1
+      - Nom : ORF8
+        ├──Début : 27727
+        ├──Fin : 28045
+        └──Id protéine : QIG55952.1
+      - Nom : N
+        ├──Début : 28059
+        ├──Fin : 29319
+        └──Id protéine : QIG55953.1
+      - Nom : ORF10
+        ├──Début : 29343
+        ├──Fin : 29460
+        └──Id protéine : QIG55954.1
+Bat coronavirus RaTG13 (Viruses, Riboviria, Orthornavirae, Pisuviricota, Pisoniviricetes, Nidovirales, Cornidovirineae, Coronaviridae, Orthocoronavirinae, Betacoronavirus, Sarbecovirus)
+   - Numero d'accession : MN996532
+   - Date de création : 24-NOV-2020
+   - Nombre de gènes présents : 10
+   - Pourcentage de GC : 38.03%
+   - Liste des gènes : 
+      - Nom : orf1ab
+        ├──Début : 265
+        ├──Fin : 21552
+        └──Id protéine : QHR63299.2
+      - Nom : S
+        ├──Début : 21559
+        ├──Fin : 25369
+        └──Id protéine : QHR63300.2
+      - Nom : NS3
+        ├──Début : 25377
+        ├──Fin : 26205
+        └──Id protéine : QHR63301.1
+      - Nom : E
+        ├──Début : 26229
+        ├──Fin : 26457
+        └──Id protéine : QHR63302.1
+      - Nom : M
+        ├──Début : 26507
+        ├──Fin : 27173
+        └──Id protéine : QHR63303.1
+      - Nom : NS6
+        ├──Début : 27183
+        ├──Fin : 27369
+        └──Id protéine : QHR63304.1
+      - Nom : NS7a
+        ├──Début : 27374
+        ├──Fin : 27740
+        └──Id protéine : QHR63305.1
+      - Nom : NS7b
+        ├──Début : 27736
+        ├──Fin : 27868
+        └──Id protéine : QHR63306.1
+      - Nom : NS8
+        ├──Début : 27874
+        ├──Fin : 28240
+        └──Id protéine : QHR63307.1
+      - Nom : N
+        ├──Début : 28254
+        ├──Fin : 29514
+        └──Id protéine : QHR63308.1
+Severe acute respiratory syndrome coronavirus 2 (Viruses, Riboviria, Orthornavirae, Pisuviricota, Pisoniviricetes, Nidovirales, Cornidovirineae, Coronaviridae, Orthocoronavirinae, Betacoronavirus, Sarbecovirus)
+   - Numero d'accession : NC_045512
+   - Date de création : 18-JUL-2020
+   - Nombre de gènes présents : 12
+   - Pourcentage de GC : 37.97%
+   - Liste des gènes : 
+      - Nom : ORF1ab
+        ├──Début : 265
+        ├──Fin : 21555
+        └──Id protéine : YP_009724389.1
+      - Nom : ORF1ab
+        ├──Début : 265
+        ├──Fin : 13483
+        └──Id protéine : YP_009725295.1
+      - Nom : S
+        ├──Début : 21562
+        ├──Fin : 25384
+        └──Id protéine : YP_009724390.1
+      - Nom : ORF3a
+        ├──Début : 25392
+        ├──Fin : 26220
+        └──Id protéine : YP_009724391.1
+      - Nom : E
+        ├──Début : 26244
+        ├──Fin : 26472
+        └──Id protéine : YP_009724392.1
+      - Nom : M
+        ├──Début : 26522
+        ├──Fin : 27191
+        └──Id protéine : YP_009724393.1
+      - Nom : ORF6
+        ├──Début : 27201
+        ├──Fin : 27387
+        └──Id protéine : YP_009724394.1
+      - Nom : ORF7a
+        ├──Début : 27393
+        ├──Fin : 27759
+        └──Id protéine : YP_009724395.1
+      - Nom : ORF7b
+        ├──Début : 27755
+        ├──Fin : 27887
+        └──Id protéine : YP_009725318.1
+      - Nom : ORF8
+        ├──Début : 27893
+        ├──Fin : 28259
+        └──Id protéine : YP_009724396.1
+      - Nom : N
+        ├──Début : 28273
+        ├──Fin : 29533
+        └──Id protéine : YP_009724397.2
+      - Nom : ORF10
+        ├──Début : 29557
+        ├──Fin : 29674
+        └──Id protéine : YP_009725255.1
