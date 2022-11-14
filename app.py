@@ -1,15 +1,13 @@
 from Bio import SeqIO
-from Bio import Entrez
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 from Bio.Align.Applications import MafftCommandline
 import utils
 
 def exo_a():
-    req = "(SARS-CoV-2 [orgn] AND refseq [filter]) OR (Bat coronavirus RaTG13) OR (MP789 MT121216)"
-    utils.request_ncbi("Nucleotide", req, "gb", "files/seq_covid.gb")
+    request = "(SARS-CoV-2 [orgn] AND refseq [filter]) OR (Bat coronavirus RaTG13) OR (MP789 MT121216)"
+    utils.request_ncbi("Nucleotide", request, "gb", "files/seq_covid.gb")
 
-#exo_a()
 
 def exo_b(filepath: str, output_path: str="info_seq_covid.txt"):
     with open(f"files/{output_path}", 'w') as fd:
@@ -40,6 +38,8 @@ def exo_b(filepath: str, output_path: str="info_seq_covid.txt"):
             # ◦ La liste des noms de gènes présents, leur position de début et de fin du CDS correspondant,
             # ainsi que l’identifiant de la protéine codée :
             fd.write("   - Liste des gènes : " + "\n")
+            
+            # ◦ Ecriture des informations relatif à chaque gène dans le fichier de sortie :
             for feature in feature_list:
                 gene = feature.qualifiers["gene"][0]
                 start = str(feature.location.start)
@@ -50,32 +50,34 @@ def exo_b(filepath: str, output_path: str="info_seq_covid.txt"):
                 fd.write("        ├──Début : " + start + "\n")
                 fd.write("        ├──Fin : " + end + "\n")
                 fd.write("        └──Id protéine : " + protein_id + "\n")
-                
-#exo_b("files/seq_covid.gb")
 
-def exo_c(nom_gene: str, filepath: str):
+
+def exo_c(gene: str, filepath: str):
+    # ◦ Récupération des objets SeqRecord à partir des entrées de 'seq_covid.gb' :
     record_list = list(SeqIO.parse("files/seq_covid.gb", "genbank"))
     seqrecord_list = []
     for record in record_list:
         for feature in record.features:
-            if feature.type == "CDS" and feature.qualifiers["gene"][0] == nom_gene:
+            # ◦ On vérifie si le gène est bien celui recherché en paramètre de la fonction :
+            if feature.type == "CDS" and feature.qualifiers["gene"][0] == gene:
+                # ◦ Récupération des informations relatif au gène trouvé.
                 name = feature.qualifiers["gene"][0]
                 seq = Seq(feature.qualifiers["translation"][0])
                 id = feature.qualifiers["protein_id"][0]
                 description = feature.qualifiers["product"][0]
+                # ◦ Insertion dans une liste d'un objet SeqRecord manuellement créer :
                 seqrecord_list.append(SeqRecord(seq, id, name, description))
-
+    # ◦ Ecriture du fichier FASTA grâce à la liste de SeqRecord précédemment créée.
     SeqIO.write(seqrecord_list, filepath, "fasta")
 
-#exo_c("S", "files/spike.fasta")
 
 def exo_d(filepath: str, out_path: str):
+    # ◦ Utilisation du wrapper d'alignement Mafft.
     command = MafftCommandline(input=filepath)
     stdout, stderr = command()
     with open(out_path, 'w') as fd:
         fd.write(stdout)
 
-#exo_d("files/spike.fasta", "files/aln-spike.fasta")
 
 def exo_e(out_path: str):
     record_list = list(SeqIO.parse("files/aln-spike.fasta", "fasta"))
@@ -84,16 +86,15 @@ def exo_e(out_path: str):
         for i in range(len(record_list[0].seq)):
             fd.write(f"   {i+1} " + " "*(12-len(str(i+1))) + f"{record_list[0].seq[i]}              {record_list[1].seq[i]}                 {record_list[2].seq[i]}\n")
 
-#exo_e("files/resultatComparaison_geneS.txt")
-
+# TODO
 def exo_f():
-    record_list = list(SeqIO.parse("files/aln-spike.fasta", "fasta"))
-    diff_chauve = 0
-    diff_pangolin = 0
-    seq_homme = record_list[0].seq
-    seq_chauve = record_list[1].seq
-    seq_pangolin = record_list[2].seq
-    for i in range(len(seq_homme)):
-        diff_chauve += 1 if seq_homme[i] != seq_chauve[i] else 0
-        diff_pangolin += 1 if seq_homme[i] != seq_chauve[i] else 0
-        
+    pass
+
+
+if __name__ == "__main__":
+    #exo_a()
+    #exo_b("files/seq_covid.gb")
+    #exo_c("S", "files/spike.fasta")
+    #exo_d("files/spike.fasta", "files/aln-spike.fasta")
+    #exo_e("files/resultatComparaison_geneS.txt")
+    exo_f()
