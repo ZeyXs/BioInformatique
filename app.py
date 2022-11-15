@@ -4,6 +4,7 @@ from Bio.Seq import Seq
 from Bio.Align.Applications import MafftCommandline
 import utils
 
+
 def exo_a():
     request = "(SARS-CoV-2 [orgn] AND refseq [filter]) OR (Bat coronavirus RaTG13) OR (MP789 MT121216)"
     utils.request_ncbi("Nucleotide", request, "gb", "files/seq_covid.gb")
