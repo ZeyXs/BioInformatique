@@ -105,3 +105,4 @@ if __name__ == "__main__":
     #exo_d("files/spike.fasta", "files/aln-spike.fasta")
     #exo_e("files/resultatComparaison_geneS.txt")
     #exo_f("files/aln-spike.fasta")
+    pass
