@@ -88,9 +88,15 @@ def exo_e(out_path: str):
             fd.write(f"   {i+1} " + " "*(12-len(str(i+1))) + f"{record_list[0].seq[i]}              {record_list[1].seq[i]}                 {record_list[2].seq[i]}\n")
 
 # TODO
-def exo_f():
-    pass
-
+def exo_f(filepath: str):
+    record_list = list(SeqIO.parse(filepath, "fasta"))
+    same_chauve, same_pangolin = 0, 0
+    seq_homme, seq_chauve, seq_pangolin = record_list[0].seq, record_list[1].seq, record_list[2].seq
+    for i in range(len(seq_homme)):
+        same_chauve += 1 if seq_homme[i] == seq_chauve[i] else 0
+        same_pangolin += 1 if seq_homme[i] == seq_pangolin[i] else 0
+    print("Taux de conservation pour la chauve-souris : " + str(round((same_chauve/len(seq_chauve))*100, 1)) + "%")
+    print("Taux de conservation pour le pangolin : " + str(round((same_pangolin/len(seq_pangolin))*100, 1)) + "%")
 
 if __name__ == "__main__":
     #exo_a()
@@ -98,4 +104,4 @@ if __name__ == "__main__":
     #exo_c("S", "files/spike.fasta")
     #exo_d("files/spike.fasta", "files/aln-spike.fasta")
     #exo_e("files/resultatComparaison_geneS.txt")
-    exo_f()
+    #exo_f("files/aln-spike.fasta")
