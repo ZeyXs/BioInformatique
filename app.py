@@ -2,7 +2,7 @@ from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 from Bio.Align.Applications import MafftCommandline
-import utils
+import utils, os, sys
 
 
 def exo_a():
@@ -79,30 +79,67 @@ def exo_d(filepath: str, out_path: str):
     with open(out_path, 'w') as fd:
         fd.write(stdout)
 
-
-def exo_e(out_path: str):
-    record_list = list(SeqIO.parse("files/aln-spike.fasta", "fasta"))
+def exo_e(filepath: str, out_path: str):
+    # ◦ Récupération des séquences alignées
+    record_list = list(SeqIO.parse(filepath, "fasta")) 
     with open(out_path, 'w') as fd:
         fd.write("position      HOMME      CHAUVE-SOURIS       PANGOLIN\n")
         for i in range(len(record_list[0].seq)):
-            fd.write(f"   {i+1} " + " "*(12-len(str(i+1))) + f"{record_list[0].seq[i]}              {record_list[1].seq[i]}                 {record_list[2].seq[i]}\n")
+            prot_h = record_list[0].seq[i]
+            prot_c = record_list[1].seq[i]
+            prot_p = record_list[2].seq[i]
+            # ◦ Sélection des lignes avec des différences 
+            if prot_h != prot_c or prot_h != prot_p or prot_c != prot_p:
+                fd.write(f"   {i+1} " + " "*(12-len(str(i+1))) + f"{prot_h}              {prot_c}                 {prot_p}\n")
 
-# TODO
 def exo_f(filepath: str):
+    # ◦ Récupération des séquences et assignation de variables pour faciliter la lecture
     record_list = list(SeqIO.parse(filepath, "fasta"))
     same_chauve, same_pangolin = 0, 0
     seq_homme, seq_chauve, seq_pangolin = record_list[0].seq, record_list[1].seq, record_list[2].seq
     for i in range(len(seq_homme)):
+        # ◦ Incrémente de un si les deux protéines comparées sont les mêmes
         same_chauve += 1 if seq_homme[i] == seq_chauve[i] else 0
         same_pangolin += 1 if seq_homme[i] == seq_pangolin[i] else 0
-    print("Taux de conservation pour la chauve-souris : " + str(round((same_chauve/len(seq_chauve))*100, 1)) + "%")
-    print("Taux de conservation pour le pangolin : " + str(round((same_pangolin/len(seq_pangolin))*100, 1)) + "%")
+    print("  • Taux de conservation pour la chauve-souris : " + str(round((same_chauve/len(seq_chauve))*100, 1)) + "%")
+    print("  • Taux de conservation pour le pangolin : " + str(round((same_pangolin/len(seq_pangolin))*100, 1)) + "%")
+
+def analyse_gene(gene: str, name: str):
+    if not name in os.listdir("files/"):
+        os.mkdir(f"files/{name}")
+    print(f"── Analyse du gène : {name}")
+    
+    print("Création du fichier FASTA...", end="")
+    exo_c(gene, f"files/{name}/{name}.fasta")
+    print(" Terminé.")
+    
+    print("Alignement des séquences...", end="")
+    exo_d(f"files/{name}/{name}.fasta", f"files/{name}/aln-{name}.fasta")
+    print(" Terminé.")
+    
+    print("Comparaison des séquences alignées...", end="")
+    exo_e(f"files/{name}/aln-{name}.fasta", f"files/{name}/comparaison-{name}.txt")
+    print(" Terminé.")
+    
+    print("Calcul du taux de conservation des séquences :")
+    exo_f(f"files/{name}/aln-{name}.fasta")
+    print("Analyse exécutée avec succès.")
 
 if __name__ == "__main__":
     #exo_a()
     #exo_b("files/seq_covid.gb")
     #exo_c("S", "files/spike.fasta")
     #exo_d("files/spike.fasta", "files/aln-spike.fasta")
-    #exo_e("files/resultatComparaison_geneS.txt")
+    #exo_e("files/comparaison-spike.txt")
     #exo_f("files/aln-spike.fasta")
+    
+    analyse_gene("S","spike")
+    analyse_gene("M","membrane")
+    analyse_gene("N","nucleocapsid")
     pass
+
+"""
+H) En observant les résultats obtenus précédemment, nous pouvons noter que la protéine
+subissant la plus grande conservation est la protéine Spike
+"""
+
