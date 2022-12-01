@@ -79,6 +79,7 @@ def exo_d(filepath: str, out_path: str):
     with open(out_path, 'w') as fd:
         fd.write(stdout)
 
+
 def exo_e(filepath: str, out_path: str):
     # ◦ Récupération des séquences alignées
     record_list = list(SeqIO.parse(filepath, "fasta")) 
@@ -92,6 +93,7 @@ def exo_e(filepath: str, out_path: str):
             if prot_h != prot_c or prot_h != prot_p or prot_c != prot_p:
                 fd.write(f"   {i+1} " + " "*(12-len(str(i+1))) + f"{prot_h}              {prot_c}                 {prot_p}\n")
 
+
 def exo_f(filepath: str):
     # ◦ Récupération des séquences et assignation de variables pour faciliter la lecture
     record_list = list(SeqIO.parse(filepath, "fasta"))
@@ -104,9 +106,11 @@ def exo_f(filepath: str):
     print("  • Taux de conservation pour la chauve-souris : " + str(round((same_chauve/len(seq_chauve))*100, 1)) + "%")
     print("  • Taux de conservation pour le pangolin : " + str(round((same_pangolin/len(seq_pangolin))*100, 1)) + "%")
 
+
 def analyse_gene(gene: str, name: str):
     if not name in os.listdir("files/"):
         os.mkdir(f"files/{name}")
+        
     print(f"── Analyse du gène : {name}")
     
     print("Création du fichier FASTA...", end="")
@@ -125,21 +129,43 @@ def analyse_gene(gene: str, name: str):
     exo_f(f"files/{name}/aln-{name}.fasta")
     print("Analyse exécutée avec succès.")
 
+
+"""
+H) En observant les résultats obtenus précédemment, nous pouvons noter que la protéine
+subissant la plus grande conservation est celle de la protéine membranaire (codées par
+le gène M) avec 98,2% et 98,6% de conservation.
+Les deux autres protéines comparées ont toutes deux entre 89% et 98% de conservation. 
+Les trois virus sont donc très ressemblant. En calculant un taux de conservation moyen,
+la chauve-souris a un taux de ressemblance de 95.27% et le pangolin 95.37%. Les coronavirus 
+de l'Homme et du pangolin sont donc les plus proches.
+"""
+
+
+def exo_i(gene: str, name: str):
+    # ◦ Récupération des objets SeqRecord à partir des entrées de 'seq_covid.gb' :
+    record_list = list(SeqIO.parse("files/seq_covid.gb", "genbank"))
+    req_id = ""
+    for record in record_list:
+        for feature in record.features:
+            # ◦ On vérifie si le gène est bien celui recherché en paramètre de la fonction :
+            if feature.type == "CDS" and feature.qualifiers["gene"][0] == gene:
+                # ◦ Récupération des id nécessaires
+                req_id = req_id + feature.qualifiers["protein_id"][0] + " "
+    utils.request_ncbi("Protein", req_id, "gb", f"files/out_{name}.gb")
+    
+
 if __name__ == "__main__":
     #exo_a()
     #exo_b("files/seq_covid.gb")
     #exo_c("S", "files/spike.fasta")
     #exo_d("files/spike.fasta", "files/aln-spike.fasta")
     #exo_e("files/comparaison-spike.txt")
-    #exo_f("files/aln-spike.fasta")
+    exo_f("files/spike/aln-spike.fasta")
     
-    analyse_gene("S","spike")
-    analyse_gene("M","membrane")
-    analyse_gene("N","nucleocapsid")
+    #analyse_gene("S","spike")
+    #analyse_gene("M","membrane")
+    #analyse_gene("N","nucleocapsid")
+    
+    #exo_i("S", "spike")
+    
     pass
-
-"""
-H) En observant les résultats obtenus précédemment, nous pouvons noter que la protéine
-subissant la plus grande conservation est la protéine Spike
-"""
-
