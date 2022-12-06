@@ -2,7 +2,7 @@ from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 from Bio.Align.Applications import MafftCommandline
-import utils, os, sys
+import utils, os, sys, align
 
 
 def exo_a():
@@ -152,19 +152,21 @@ def exo_i(gene: str, name: str):
                 req_id = req_id + feature.qualifiers["protein_id"][0] + " "
     utils.request_ncbi("Protein", req_id, "gb", f"files/out_{name}.gb")
     
+def exo_j(seq1: str, seq2: str):
+    print(align.pair(seq1,seq2))
 
 if __name__ == "__main__":
-    #exo_a()
-    #exo_b("files/seq_covid.gb")
-    #exo_c("S", "files/spike.fasta")
-    #exo_d("files/spike.fasta", "files/aln-spike.fasta")
-    #exo_e("files/comparaison-spike.txt")
-    exo_f("files/spike/aln-spike.fasta")
+    # exo_a()
+    # exo_b("files/seq_covid.gb")
+    # exo_c("S", "files/spike.fasta")
+    # exo_d("files/spike.fasta", "files/aln-spike.fasta")
+    # exo_e("files/comparaison-spike.txt")
+    # exo_f("files/spike/aln-spike.fasta")
     
-    #analyse_gene("S","spike")
-    #analyse_gene("M","membrane")
-    #analyse_gene("N","nucleocapsid")
+    # analyse_gene("S","spike")
+    # analyse_gene("M","membrane")
+    # analyse_gene("N","nucleocapsid")
     
-    #exo_i("S", "spike")
-    
+    # exo_i("S", "spike")
+    exo_j("PBTATE","PATAT")
     pass

@@ -35,25 +35,28 @@ def create_matrix(seq1, seq2):
     #affiche(matrix)
     return matrix
 
-def parcours(matrix,x,y,seq1,seq2,tab):
+def parcours(matrix,x,y,seq1,seq2,align_seq1,align_seq2):
     if x == 1 and y == 1:
-        tab.append(seq1[0])
-        tab.reverse()
-        return tab
+        align_seq1.append(seq1[0])
+        align_seq1.reverse()
+        align_seq2.append(seq2[0])
+        align_seq2.reverse()
+        return align_seq1, align_seq2
     elif seq1[x-1] == seq2[y-1] or x == y:
-        tab.append(seq1[x-1])
-        return parcours(matrix, x-1, y-1, seq1, seq2, tab)
-    elif seq1[x-1] != seq2[y-1]:
-        tab.append("-")
+        align_seq1.append(seq1[x-1])
+        align_seq2.append(seq2[y-1])
+        return parcours(matrix, x-1, y-1, seq1, seq2, align_seq1, align_seq2)
+    else: #seq1[x-1] != seq2[y-1]
         if x > y:
-            return parcours(matrix, x-1, y, seq1, seq2, tab)
+            align_seq1.append(seq1[x-1])
+            align_seq2.append("-")
+            return parcours(matrix, x-1, y, seq1, seq2, align_seq1, align_seq2)
         else:
-            return parcours(matrix, x, y-1, seq1, seq2, tab)
-    else:
-        print("Euh... il y a quelque chose qui s'est mal passé :(")
+            align_seq1.append("-")
+            align_seq2.append(seq2[y-1])
+            return parcours(matrix, x, y-1, seq1, seq2, align_seq1, align_seq2)
 
 def pair(seq1, seq2):
-    matrix = create_matrix(seq1,seq2)
-    chemin= parcours(matrix, len(matrix[0])-1, len(matrix)-1, seq1, seq2, [])
-    return ''.join(chemin)
-
+    matrix = create_matrix(seq1, seq2)
+    align_seq1, align_seq2 = parcours(matrix, len(matrix[0])-1, len(matrix)-1, seq1, seq2, [], [])
+    return ''.join(align_seq1), ''.join(align_seq2) 
