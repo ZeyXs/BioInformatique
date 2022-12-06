@@ -9,7 +9,6 @@ def exo_a():
     request = "(SARS-CoV-2 [orgn] AND refseq [filter]) OR (Bat coronavirus RaTG13) OR (MP789 MT121216)"
     utils.request_ncbi("Nucleotide", request, "gb", "files/seq_covid.gb")
 
-
 def exo_b(filepath: str, output_path: str="info_seq_covid.txt"):
     with open(f"files/{output_path}", 'w') as fd:
         record_list = list(SeqIO.parse(f"{filepath}","gb"))

@@ -1,18 +1,6 @@
 import sys
-sys.setrecursionlimit(200000000)
+sys.setrecursionlimit(50000)
 
-def affiche(tab):
-    maxlen=len(str(tab[0][-1]))
-    for i in range(len(tab)):
-        ligne=""
-        for j in tab[i]:
-            j=str(j)
-            n=len(j)
-            if n==maxlen:
-                ligne+=" "+j
-            else:
-                ligne+=" "+" "*(1+(maxlen-n)//2)+j
-        print(ligne)
                 
 def get_empty_matrix(seq1, seq2):
     # ◦ Initialisation de la matrice d'origine
@@ -69,8 +57,3 @@ def pair(seq1, seq2):
     chemin= parcours(matrix, len(matrix[0])-1, len(matrix)-1, seq1, seq2, [])
     return ''.join(chemin)
 
-
-seq1 = "ACTG"
-seq2 = "ACCTG"
-
-print(pair(seq1, seq2))

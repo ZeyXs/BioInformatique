@@ -15,3 +15,16 @@ def request_ncbi(database, request, format, filepath):
     SeqIO.write(seq_temp, filepath, format)
     # Fermeture du efetch
     fichier_record.close()
+    
+def affiche_matrix(matrix):
+    max_len = len(str(matrix[0][-1]))
+    for i in range(len(matrix)):
+        ligne = ""
+        for j in matrix[i]:
+            j = str(j)
+            n = len(j)
+            if n == max_len:
+                ligne += " " + j
+            else:
+                ligne += " " + " " * (1+(max_len-n)//2) + j
+        print(ligne)
