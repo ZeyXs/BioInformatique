@@ -18,10 +18,10 @@ def score(i, j):
 
 def remplir(matrix, seq1, seq2, x, y):
     # ◦ On ajoute à la position x y de la matrice le chemin avec le score le plus haut.
-    score_diago = matrix[x-1][y-1] + score(seq1[y-1],seq2[x-1])
-    score_vert = matrix[x-1][y] + score(seq1[y-1],"-")
-    score_hori = matrix[x][y-1] + score("-",seq2[x-1])
-    result = max( score_diago, score_vert , score_hori)
+    match = matrix[x-1][y-1] + score(seq1[y-1],seq2[x-1])
+    delete = matrix[x-1][y] + score(seq1[y-1],"-")
+    insert = matrix[x][y-1] + score("-",seq2[x-1])
+    result = max(match, delete , insert)
     return result
 
 def create_matrix(seq1, seq2):
@@ -37,26 +37,23 @@ def create_matrix(seq1, seq2):
 
 def parcours(matrix,x,y,seq1,seq2,align_seq1,align_seq2):
     if x == 1 and y == 1:
-        align_seq1.append(seq1[0])
-        align_seq1.reverse()
-        align_seq2.append(seq2[0])
-        align_seq2.reverse()
+        align_seq1 = seq1[0] + align_seq1
+        align_seq2 = seq2[0] + align_seq2
         return align_seq1, align_seq2
     elif seq1[x-1] == seq2[y-1] or x == y:
-        align_seq1.append(seq1[x-1])
-        align_seq2.append(seq2[y-1])
+        align_seq1 = seq1[x-1] + align_seq1
+        align_seq2 = seq2[y-1] + align_seq2
         return parcours(matrix, x-1, y-1, seq1, seq2, align_seq1, align_seq2)
-    else: #seq1[x-1] != seq2[y-1]
+    else:
         if x > y:
-            align_seq1.append(seq1[x-1])
-            align_seq2.append("-")
+            align_seq1 = seq1[x-1] + align_seq1
+            align_seq2 = "-" + align_seq2
             return parcours(matrix, x-1, y, seq1, seq2, align_seq1, align_seq2)
         else:
-            align_seq1.append("-")
-            align_seq2.append(seq2[y-1])
+            align_seq1 = "-" + align_seq1
+            align_seq2 = seq2[y-1] + align_seq2
             return parcours(matrix, x, y-1, seq1, seq2, align_seq1, align_seq2)
 
 def pair(seq1, seq2):
     matrix = create_matrix(seq1, seq2)
-    align_seq1, align_seq2 = parcours(matrix, len(matrix[0])-1, len(matrix)-1, seq1, seq2, [], [])
-    return ''.join(align_seq1), ''.join(align_seq2) 
+    return parcours(matrix, len(matrix[0])-1, len(matrix)-1, seq1, seq2, "", "")

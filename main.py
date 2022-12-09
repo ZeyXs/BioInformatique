@@ -2,7 +2,8 @@ from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 from Bio.Align.Applications import MafftCommandline
-import utils, os, sys, align
+import utils, os, align
+from utils import Color
 
 
 def exo_a():
@@ -65,24 +66,26 @@ def exo_c(gene: str, filepath: str):
                 seq = Seq(feature.qualifiers["translation"][0])
                 id = feature.qualifiers["protein_id"][0]
                 description = feature.qualifiers["product"][0]
-                # ◦ Insertion dans une liste d'un objet SeqRecord manuellement créer :
+                # ◦ Insertion dans une liste d'un objet SeqRecord manuellement créer.
                 seqrecord_list.append(SeqRecord(seq, id, name, description))
     # ◦ Ecriture du fichier FASTA grâce à la liste de SeqRecord précédemment créée.
     SeqIO.write(seqrecord_list, filepath, "fasta")
 
 
-def exo_d(filepath: str, out_path: str):
+def exo_d(filepath: str, output_path: str):
     # ◦ Utilisation du wrapper d'alignement Mafft.
     command = MafftCommandline(input=filepath)
+    # ◦ Éxécution de la commande.
     stdout, stderr = command()
-    with open(out_path, 'w') as fd:
+    with open(output_path, 'w') as fd:
+        # ◦ Écriture du résultat dans un fichier.
         fd.write(stdout)
 
 
-def exo_e(filepath: str, out_path: str):
+def exo_e(filepath: str, output_path: str):
     # ◦ Récupération des séquences alignées
     record_list = list(SeqIO.parse(filepath, "fasta")) 
-    with open(out_path, 'w') as fd:
+    with open(output_path, 'w') as fd:
         fd.write("position      HOMME      CHAUVE-SOURIS       PANGOLIN\n")
         for i in range(len(record_list[0].seq)):
             prot_h = record_list[0].seq[i]
@@ -94,12 +97,12 @@ def exo_e(filepath: str, out_path: str):
 
 
 def exo_f(filepath: str):
-    # ◦ Récupération des séquences et assignation de variables pour faciliter la lecture
+    # ◦ Récupération des séquences et assignation de variables pour faciliter la lecture.
     record_list = list(SeqIO.parse(filepath, "fasta"))
     same_chauve, same_pangolin = 0, 0
     seq_homme, seq_chauve, seq_pangolin = record_list[0].seq, record_list[1].seq, record_list[2].seq
     for i in range(len(seq_homme)):
-        # ◦ Incrémente de un si les deux protéines comparées sont les mêmes
+        # ◦ Incrémente de un si les deux protéines comparées sont les mêmes.
         same_chauve += 1 if seq_homme[i] == seq_chauve[i] else 0
         same_pangolin += 1 if seq_homme[i] == seq_pangolin[i] else 0
     print("  • Taux de conservation pour la chauve-souris : " + str(round((same_chauve/len(seq_chauve))*100, 1)) + "%")
@@ -126,8 +129,10 @@ def analyse_gene(gene: str, name: str):
     
     print("Calcul du taux de conservation des séquences :")
     exo_f(f"files/{name}/aln-{name}.fasta")
+    
+    print("Conversion des gènes au format genbank")
+    exo_i(gene, name)
     print("Analyse exécutée avec succès.")
-
 
 """
 H) En observant les résultats obtenus précédemment, nous pouvons noter que la protéine
@@ -150,23 +155,21 @@ def exo_i(gene: str, name: str):
             if feature.type == "CDS" and feature.qualifiers["gene"][0] == gene:
                 # ◦ Récupération des id nécessaires
                 req_id = req_id + feature.qualifiers["protein_id"][0] + " "
-    utils.request_ncbi("Protein", req_id, "gb", f"files/out_{name}.gb")
+    utils.request_ncbi("Protein", req_id, "gb", f"files/{name}/out_{name}.gb")
     
 def exo_j(seq1: str, seq2: str):
     print(align.pair(seq1,seq2))
+            
 
 if __name__ == "__main__":
+                
     # exo_a()
-    # exo_b("files/seq_covid.gb")
-    # exo_c("S", "files/spike.fasta")
-    # exo_d("files/spike.fasta", "files/aln-spike.fasta")
-    # exo_e("files/comparaison-spike.txt")
-    # exo_f("files/spike/aln-spike.fasta")
     
     # analyse_gene("S","spike")
     # analyse_gene("M","membrane")
     # analyse_gene("N","nucleocapsid")
     
     # exo_i("S", "spike")
-    exo_j("PBTATE","PATAT")
+    # exo_j("GAAAAAAT","GAAT")
+    
     pass

@@ -1,0 +1,189 @@
+LOCUS       QIG55948                 222 aa            linear   VRL 21-JUN-2021
+DEFINITION  membrane glycoprotein [Pangolin coronavirus].
+ACCESSION   QIG55948
+VERSION     QIG55948.1
+KEYWORDS    .
+SOURCE      Pangolin coronavirus
+  ORGANISM  Pangolin coronavirus
+            Viruses; Riboviria; Orthornavirae; Pisuviricota; Pisoniviricetes;
+            Nidovirales; Cornidovirineae; Coronaviridae; Orthocoronavirinae;
+            Betacoronavirus; Sarbecovirus.
+DBSOURCE    accession MT121216.1
+REFERENCE   1  (residues 1 to 222)
+  AUTHORS   Liu,P., Jiang,J.Z., Wan,X.F., Hua,Y., Li,L., Zhou,J., Wang,X.,
+            Hou,F., Chen,J., Zou,J. and Chen,J.
+  TITLE     Are pangolins the intermediate host of the 2019 novel coronavirus
+            (SARS-CoV-2)?
+  JOURNAL   PLoS Pathog 16 (5), e1008421 (2020)
+   PUBMED   32407364
+  REMARK    Erratum:[PLoS Pathog. 2021 Jun 9;17(6):e1009664. PMID: 34106988]
+            Publication Status: Online-Only
+REFERENCE   2  (residues 1 to 222)
+  AUTHORS   Chen,J., Li,L., Zhou,J. and Liu,P.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (27-FEB-2020) Animals Endemic Disease, Guangdong Institute
+            of Applied Biological Resources, Xingang West Road 105, Guangzhou,
+            Guangdong 510260, China
+COMMENT     ##Assembly-Data-START##
+            Assembly Method       :: Megahit v. v. 1.2.9
+            Sequencing Technology :: Illumina
+            ##Assembly-Data-END##
+FEATURES             Location/Qualifiers
+     source          1..222
+                     /organism="Pangolin coronavirus"
+                     /isolate="MP789"
+                     /isolation_source="lung"
+                     /host="Manis javanica"
+                     /db_xref="taxon:2708335"
+                     /country="China"
+                     /collection_date="2019-03-29"
+     Protein         1..222
+                     /product="membrane glycoprotein"
+     Region          5..222
+                     /region_name="SARS-like-CoV_M"
+                     /note="Membrane (or Matrix) protein from Severe acute
+                     respiratory syndrome (SARS) coronavirus, SARS-CoV-2, and
+                     related betacoronaviruses in the B lineage; cd21569"
+                     /db_xref="CDD:394855"
+     CDS             1..222
+                     /gene="M"
+                     /coded_by="MT121216.1:26357..27025"
+ORIGIN
+        1 msgdngtitv eelkklldqw nlvigflflt wicllqfaya nrnrflyiik liflwllwpv
+       61 tlacfvlaav yrinwitggi aiamaclvgl mwlsyfiasf rlfartrsmw sfnpetnill
+      121 nvplhgtilt rplleselvi gavilrghlr iaghhlgrcd ikdlpkeitv atsrtlsyyk
+      181 lgasqrvagd sgfaaysryr ignyklntdh ssssdniall vq
+//
+LOCUS       QHR63303                 221 aa            linear   VRL 24-NOV-2020
+DEFINITION  membrane protein [Bat coronavirus RaTG13].
+ACCESSION   QHR63303
+VERSION     QHR63303.1
+KEYWORDS    .
+SOURCE      Bat coronavirus RaTG13
+  ORGANISM  Bat coronavirus RaTG13
+            Viruses; Riboviria; Orthornavirae; Pisuviricota; Pisoniviricetes;
+            Nidovirales; Cornidovirineae; Coronaviridae; Orthocoronavirinae;
+            Betacoronavirus; Sarbecovirus.
+DBSOURCE    accession MN996532.2
+REFERENCE   1  (residues 1 to 221)
+  AUTHORS   Zhou,P., Yang,X.-L., Wang,X.-G., Hu,B., Zhang,L., Zhang,W.,
+            Si,H.-R., Zhu,Y., Li,B., Huang,C.-L., Chen,H.-D., Chen,J., Luo,Y.,
+            Guo,H., Jiang,R.-D., Liu,M.-Q., Chen,Y., Shen,X.-R., Wang,X.,
+            Zheng,X.-S., Zhao,K., Chen,Q.-J., Deng,F., Liu,L.-L., Yan,B.,
+            Zhan,F.-X., Wang,Y.-Y., Xiao,G.-F. and Shi,Z.-L.
+  TITLE     A pneumonia outbreak associated with a new coronavirus of probable
+            bat origin
+  JOURNAL   Nature 579 (7798), 270-273 (2020)
+  REMARK    DOI: 10.1038/s41586-020-2012-7
+REFERENCE   2  (residues 1 to 221)
+  AUTHORS   Zhu,Y., Yu,P., Li,B., Hu,B., Si,H.R., Yang,X.L., Zhou,P. and
+            Shi,Z.L.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (27-JAN-2020) CAS Key Laboratory of Special Pathogens,
+            Wuhan Institute of Virology, Center for Biosafety Mega-Science,
+            Chinese Academy of Sciences, No. 44 Xiao Hong Shan, Wuhan, Hubei
+            430071, China
+COMMENT     ##Assembly-Data-START##
+            Assembly Method       :: CLC Genomics Workbench v. 12.0
+            Sequencing Technology :: Illumina
+            ##Assembly-Data-END##
+FEATURES             Location/Qualifiers
+     source          1..221
+                     /organism="Bat coronavirus RaTG13"
+                     /isolate="RaTG13"
+                     /isolation_source="fecal swab"
+                     /host="Rhinolophus affinis"
+                     /db_xref="taxon:2709072"
+                     /country="China"
+                     /collection_date="24-Jul-2013"
+                     /note="former lab designation: Bat coronavirus Ra4991"
+     Protein         1..221
+                     /product="membrane protein"
+     Region          4..221
+                     /region_name="SARS-like-CoV_M"
+                     /note="Membrane (or Matrix) protein from Severe acute
+                     respiratory syndrome (SARS) coronavirus, SARS-CoV-2, and
+                     related betacoronaviruses in the B lineage; cd21569"
+                     /db_xref="CDD:394855"
+     CDS             1..221
+                     /gene="M"
+                     /coded_by="MN996532.2:26508..27173"
+ORIGIN
+        1 madngtitve elkklleqwn lvigflfltw icllqfayan rnrflyiikl iflwllwpvt
+       61 lacfvlaavy rinwitggia iamaclvglm wlsyfiasfr lfartrsmws fnpetnilln
+      121 vplhgtiltr plleselvig avilrghlri aghhlgrcdi kdlpkeitva tsrtlsyykl
+      181 gasqrvagds gfaaysryri gnyklntdhs sssdniallv q
+//
+LOCUS       YP_009724393             222 aa            linear   VRL 18-JUL-2020
+DEFINITION  membrane glycoprotein [Severe acute respiratory syndrome coronavirus
+            2].
+ACCESSION   YP_009724393
+VERSION     YP_009724393.1
+DBLINK      BioProject: PRJNA485481
+KEYWORDS    RefSeq.
+SOURCE      Severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2)
+  ORGANISM  Severe acute respiratory syndrome coronavirus 2
+            Viruses; Riboviria; Orthornavirae; Pisuviricota; Pisoniviricetes;
+            Nidovirales; Cornidovirineae; Coronaviridae; Orthocoronavirinae;
+            Betacoronavirus; Sarbecovirus.
+DBSOURCE    REFSEQ: accession NC_045512.2
+REFERENCE   1  (residues 1 to 222)
+  AUTHORS   Wu,F., Zhao,S., Yu,B., Chen,Y.M., Wang,W., Song,Z.G., Hu,Y.,
+            Tao,Z.W., Tian,J.H., Pei,Y.Y., Yuan,M.L., Zhang,Y.L., Dai,F.H.,
+            Liu,Y., Wang,Q.M., Zheng,J.J., Xu,L., Holmes,E.C. and Zhang,Y.Z.
+  TITLE     A new coronavirus associated with human respiratory disease in China
+  JOURNAL   Nature 579 (7798), 265-269 (2020)
+   PUBMED   32015508
+  REMARK    Erratum:[Nature. 2020 Apr;580(7803):E7. PMID: 32296181]
+REFERENCE   2  (residues 1 to 222)
+  CONSRTM   NCBI Genome Project
+  TITLE     Direct Submission
+  JOURNAL   Submitted (17-JAN-2020) National Center for Biotechnology
+            Information, NIH, Bethesda, MD 20894, USA
+REFERENCE   3  (residues 1 to 222)
+  AUTHORS   Wu,F., Zhao,S., Yu,B., Chen,Y.-M., Wang,W., Hu,Y., Song,Z.-G.,
+            Tao,Z.-W., Tian,J.-H., Pei,Y.-Y., Yuan,M.L., Zhang,Y.-L., Dai,F.-H.,
+            Liu,Y., Wang,Q.-M., Zheng,J.-J., Xu,L., Holmes,E.C. and Zhang,Y.-Z.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (05-JAN-2020) Shanghai Public Health Clinical Center &
+            School of Public Health, Fudan University, Shanghai, China
+COMMENT     ##Assembly-Data-START##
+            Assembly Method       :: Megahit v. V1.1.3
+            Sequencing Technology :: Illumina
+            ##Assembly-Data-END##
+            PROVISIONAL REFSEQ: This record has not yet been subject to final
+            NCBI review. The reference sequence is identical to QHD43419.
+            Annotation was added using homology to SARSr-CoV NC_004718.3. ###
+            Formerly called 'Wuhan seafood market pneumonia virus.' If you have
+            questions or suggestions, please email us at info@ncbi.nlm.nih.gov
+            and include the accession number NC_045512.### Protein structures
+            can be found at
+            https://www.ncbi.nlm.nih.gov/structure/?term=sars-cov-2.### Find
+            all other Severe acute respiratory syndrome coronavirus 2
+            (SARS-CoV-2) sequences at
+            https://www.ncbi.nlm.nih.gov/genbank/sars-cov-2-seqs/
+            COMPLETENESS: full length.
+            Method: conceptual translation.
+FEATURES             Location/Qualifiers
+     source          1..222
+                     /organism="Severe acute respiratory syndrome coronavirus 2"
+                     /isolate="Wuhan-Hu-1"
+                     /host="Homo sapiens"
+                     /db_xref="taxon:2697049"
+                     /country="China"
+                     /collection_date="Dec-2019"
+     Protein         1..222
+                     /product="membrane glycoprotein"
+                     /calculated_mol_wt="25016"
+     CDS             1..222
+                     /gene="M"
+                     /locus_tag="GU280_gp05"
+                     /coded_by="NC_045512.2:26523..27191"
+                     /note="ORF5; structural protein"
+                     /db_xref="GeneID:43740571"
+ORIGIN
+        1 madsngtitv eelkklleqw nlvigflflt wicllqfaya nrnrflyiik liflwllwpv
+       61 tlacfvlaav yrinwitggi aiamaclvgl mwlsyfiasf rlfartrsmw sfnpetnill
+      121 nvplhgtilt rplleselvi gavilrghlr iaghhlgrcd ikdlpkeitv atsrtlsyyk
+      181 lgasqrvagd sgfaaysryr ignyklntdh ssssdniall vq
+//
