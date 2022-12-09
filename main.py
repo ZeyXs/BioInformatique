@@ -20,7 +20,7 @@ def exo_b(filepath: str, output_path: str="info_seq_covid.txt"):
             # ◦ Le numéro d’accession de la donnée GenBank :
             fd.write("   - Numero d'accession : " + annotations["accessions"][0] + "\n")
             # ◦ La date de création de la donnée GenBank :
-            fd.write("   - Date de création : " + annotations["date"] + "\n")    
+            fd.write("   - Date de création : " + annotations["date"] + "\n")  
             
             # Récupération de toutes les features :
             feature_list = []
@@ -149,9 +149,22 @@ def exo_i(gene: str, name: str):
                 req_id = req_id + feature.qualifiers["protein_id"][0] + " "
     utils.request_ncbi("Protein", req_id, "gb", f"files/{name}/out_{name}.gb")
     
-def exo_j(seq1: str, seq2: str):
-    print(align.pair(seq1,seq2))
-            
+def exo_j(filepath, outpath):
+    record_list = list(SeqIO.parse(filepath, "fasta"))
+    seqrecords = []
+    #seq3=homme
+    #seq2=cs
+    #seq1=pangolin
+    with open(outpath, "w") as fd:
+        for record in [(record_list[2],record_list[1]),(record_list[2],record_list[0]),(record_list[0],record_list[1])]:
+            seqa, seqb = align.pair(str(record[0].seq),str(record[1].seq))
+            seqrecords.append(SeqRecord(Seq(seqa), id=record[0].id, description=record[0].description))
+            seqrecords.append(SeqRecord(Seq(seqb), id=record[1].id, description=record[1].description))
+    SeqIO.write(seqrecords, outpath, "fasta")
+
+"""
+Tentative de résolution pour l'étape K.
+"""
 def exo_k(filepath, output):
     record_list = list(SeqIO.parse(filepath, "fasta"))
     aligned_seq = []
@@ -161,9 +174,9 @@ def exo_k(filepath, output):
         for i in range(1, len(record_list)):
             seq_i = record_list[i].seq
             if len(first_seq) > len(seq_i):
-                _, alignement = align.pair(first_seq, seq_i)
+                _,alignement = align.pair(first_seq, seq_i)
             else:
-                alignement, _ = align.pair(first_seq, seq_i)
+                alignement,_ = align.pair(first_seq, seq_i)
             aligned_seq.append(Seq(alignement))
     else:
         raise "Un fichier FASTA doit contenir au minimum 2 séquences pour être aligné."
@@ -189,14 +202,13 @@ if __name__ == "__main__":
     #------- ◦ Etape avancées ◦ -------
     
     # exo_i("S", "spike")
-    # exo_j("GAAAAAAT","GAAT")
+    
+    # exo_j("files/spike/spike.fasta", "files/spike/aln-spike-1.fasta")
+    # exo_j("files/nucleocapsid/nucleocapsid.fasta", "files/nucleocapsid/aln-nucleocapsid-1.fasta")
+    # exo_j("files/membrane/membrane.fasta", "files/membrane/aln-membrane-1.fasta")
     
     # exo_k("files/spike/spike.fasta", "files/spike/aln-spike-2.fasta")
     # exo_k("files/nucleocapsid/nucleocapsid.fasta", "files/nucleocapsid/aln-nucleocapsid-2.fasta")
     # exo_k("files/membrane/membrane.fasta", "files/membrane/aln-membrane-2.fasta")
-    
-    """ record = list(SeqIO.parse("files/spike/spike.fasta", "fasta"))
-    seq1, seq2 = align.pair(record[0].seq, record[1].seq)
-    print(len(seq1), len(seq2)) """
     
     pass

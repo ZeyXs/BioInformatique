@@ -1,4 +1,5 @@
 from utils import Color
+import align
 from main import *
 
 def choose_etape():
@@ -45,40 +46,51 @@ def select_etape():
         case "a":
             print(Color.ORANGE + "Éxécution de l'étape a." + Color.RESET)
             exo_a()
+
         case "b":
             print(Color.ORANGE + "Éxécution de l'étape b." + Color.RESET)
             exo_b("files/seq_covid.gb")
+        
         case "c":
             print(Color.ORANGE + "Éxécution de l'étape c." + Color.RESET)
             exo_c("files/seq_covid.gb")
+        
         case "d":
             gene, name = choose_gene()
             print(Color.ORANGE + "Éxécution de l'étape d." + Color.RESET)
             exo_d(f"files/{name}/{name}.fasta", f"files/{name}/aln-{name}.fasta")
+        
         case "e":
             gene, name = choose_gene()
             print(Color.ORANGE + "Éxécution de l'étape e." + Color.RESET)
             exo_e(f"files/{name}/{name}.fasta", f"files/{name}/comparaison-spike.txt")
+        
         case "f":
             gene, name = choose_gene()
             print(Color.ORANGE + "Éxécution de l'étape f." + Color.RESET)
             exo_f(f"files/{name}/aln-{name}.fasta")
+        
         case "analyse":
             analyse()
+        
         case "g":
             analyse()
+        
         case "i":
             gene, name = choose_gene()
             print(Color.ORANGE + f"Éxécution de l'étape i pour le gène {name} ({gene})." + Color.RESET)
             exo_i(gene, name)
+        
         case "j":
+            print("Si vous souhaitez que l'étape j créée les fichiers contenant toutes les séquences alignées à chaque fois, exécuter le code directement sur 'main.py'")
             seq1, seq2 = choose_seq()
             print(Color.ORANGE + f"Éxécution de l'alignement avec les deux séquences sélectionnées." + Color.RESET)
-            exo_j(seq1, seq2)
+            print(align.pair(seq1, seq2))
         case "k":
             for gene in [{"gene":"S","name":"spike"},{"gene":"M","name":"membrane"},{"gene":"N","name":"nucleocapsid"}]:
                 print(Color.ORANGE + "Alignement du gène" + gene["name"] + "(" + gene["gene"] + ")" + Color.RESET)
                 exo_k("files/" + gene["name"] + "/" + gene["name"] + ".fasta", "files/" + gene["name"] + "/aln-" + gene["name"] + "2.fasta")
+        
         case _:
             print(Color.RED + "Veuillez renseigner une étape valide." + Color.RESET)
             print("")

@@ -61,5 +61,4 @@ def parcours(matrix,x,y,seq1,seq2,align_seq1,align_seq2):
 
 def pair(seq1, seq2):
     matrix = create_matrix(seq1, seq2)
-    utils.affiche_matrix(matrix)
     return parcours(matrix, len(matrix[0])-1, len(matrix)-1, seq1, seq2, "", "")
