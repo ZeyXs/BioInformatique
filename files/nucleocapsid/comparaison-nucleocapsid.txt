@@ -1,4 +1,4 @@
-position      HOMME      CHAUVE-SOURIS       PANGOLIN
+position     PANGOLIN    CHAUVE-SOURIS         HOMME
    24           A              T                 T
    37           P              P                 S
    65           R              K                 K

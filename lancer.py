@@ -28,6 +28,15 @@ def choose_seq():
         return choose_seq
     return seq1, seq2
 
+def choose_align_type():
+    print("Veuillez choisir le type d'algorithme pour l'alignement : (mafft, etape_j)")
+    type = input("Votre choix : " + Color.CYAN)
+    print(Color.RESET)
+    if type != "mafft" and type != "etape_j":
+        print(Color.RED + "Veuillez rentrer un choix valide." + Color.RESET)
+        return choose_align_type()
+    return type
+
 def select_etape():
     print("Veuillez choisir une étape à lancer : " + Color.GREEN + "(a,b,c,d,e,f,g,i,j,analyse)" + Color.RESET)
     print("PS: L'étape 'analyse' correspond à la fusion de tous les exercices qui consiste à l'analyse d'un gène.")
@@ -43,18 +52,21 @@ def select_etape():
             print(Color.ORANGE + "Éxécution de l'étape c." + Color.RESET)
             exo_c("files/seq_covid.gb")
         case "d":
-            print(Color.ORANGE + "Éxécution de l'étape d." + Color.RESET)
-            exo_d("files/spike.fasta", "files/aln-spike.fasta")
-        case "e":
-            print(Color.ORANGE + "Éxécution de l'étape e." + Color.RESET)
-            exo_e("files/comparaison-spike.txt")
-        case "f":
-            print(Color.ORANGE + "Éxécution de l'étape f." + Color.RESET)
-            exo_f("files/spike/aln-spike.fasta")
-        case "analyse":
             gene, name = choose_gene()
-            print(Color.ORANGE + f"Éxécution de l'analyse du gène {name} ({gene})." + Color.RESET)
-            analyse_gene(gene, name)
+            print(Color.ORANGE + "Éxécution de l'étape d." + Color.RESET)
+            exo_d(f"files/{name}/{name}.fasta", f"files/{name}/aln-{name}.fasta")
+        case "e":
+            gene, name = choose_gene()
+            print(Color.ORANGE + "Éxécution de l'étape e." + Color.RESET)
+            exo_e(f"files/{name}/{name}.fasta", f"files/{name}/comparaison-spike.txt")
+        case "f":
+            gene, name = choose_gene()
+            print(Color.ORANGE + "Éxécution de l'étape f." + Color.RESET)
+            exo_f(f"files/{name}/aln-{name}.fasta")
+        case "analyse":
+            analyse()
+        case "g":
+            analyse()
         case "i":
             gene, name = choose_gene()
             print(Color.ORANGE + f"Éxécution de l'étape i pour le gène {name} ({gene})." + Color.RESET)
@@ -63,8 +75,21 @@ def select_etape():
             seq1, seq2 = choose_seq()
             print(Color.ORANGE + f"Éxécution de l'alignement avec les deux séquences sélectionnées." + Color.RESET)
             exo_j(seq1, seq2)
+        case "k":
+            for gene in [{"gene":"S","name":"spike"},{"gene":"M","name":"membrane"},{"gene":"N","name":"nucleocapsid"}]:
+                print(Color.ORANGE + "Alignement du gène" + gene["name"] + "(" + gene["gene"] + ")" + Color.RESET)
+                exo_k("files/" + gene["name"] + "/" + gene["name"] + ".fasta", "files/" + gene["name"] + "/aln-" + gene["name"] + "2.fasta")
         case _:
-            print(Color.RED + "Veuillez renseigner une étape valide :" + Color.RESET)
+            print(Color.RED + "Veuillez renseigner une étape valide." + Color.RESET)
+            print("")
             select_etape()
+            
+def analyse():
+    type = choose_align_type()
+    print(Color.GREEN + f"Vous avez sélectionné l'algorithme d'alignement {type}." + Color.RESET)
+    for gene in [{"gene":"S","name":"spike"},{"gene":"M","name":"membrane"},{"gene":"N","name":"nucleocapsid"}]:
+        print("------------------------------------")
+        print(Color.ORANGE + f"Éxécution de l'analyse du gène " + gene["name"] + " (" + gene["gene"] + ")." + Color.RESET)
+        analyse_gene(gene["gene"], gene["name"], type)
             
 select_etape()

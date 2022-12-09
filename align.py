@@ -1,4 +1,5 @@
 import sys
+import utils
 sys.setrecursionlimit(50000)
 
                 
@@ -32,28 +33,33 @@ def create_matrix(seq1, seq2):
         for y in range(1, len(matrix[0])):
             matrix[x][y] = remplir(matrix, seq1, seq2, x, y)
     
-    #affiche(matrix)
     return matrix
 
 def parcours(matrix,x,y,seq1,seq2,align_seq1,align_seq2):
     if x == 1 and y == 1:
+        # ◦ Cas de base
         align_seq1 = seq1[0] + align_seq1
         align_seq2 = seq2[0] + align_seq2
+        # ◦ On retourne les deux séquences alignées
         return align_seq1, align_seq2
     elif seq1[x-1] == seq2[y-1] or x == y:
+        # ◦ Case diagonale
         align_seq1 = seq1[x-1] + align_seq1
         align_seq2 = seq2[y-1] + align_seq2
         return parcours(matrix, x-1, y-1, seq1, seq2, align_seq1, align_seq2)
     else:
         if x > y:
+            # ◦ Case gauche
             align_seq1 = seq1[x-1] + align_seq1
             align_seq2 = "-" + align_seq2
             return parcours(matrix, x-1, y, seq1, seq2, align_seq1, align_seq2)
         else:
+            # ◦ Case du haut
             align_seq1 = "-" + align_seq1
             align_seq2 = seq2[y-1] + align_seq2
             return parcours(matrix, x, y-1, seq1, seq2, align_seq1, align_seq2)
 
 def pair(seq1, seq2):
     matrix = create_matrix(seq1, seq2)
+    utils.affiche_matrix(matrix)
     return parcours(matrix, len(matrix[0])-1, len(matrix)-1, seq1, seq2, "", "")

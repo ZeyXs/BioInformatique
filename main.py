@@ -86,7 +86,7 @@ def exo_e(filepath: str, output_path: str):
     # ◦ Récupération des séquences alignées
     record_list = list(SeqIO.parse(filepath, "fasta")) 
     with open(output_path, 'w') as fd:
-        fd.write("position      HOMME      CHAUVE-SOURIS       PANGOLIN\n")
+        fd.write("position     PANGOLIN    CHAUVE-SOURIS         HOMME\n")
         for i in range(len(record_list[0].seq)):
             prot_h = record_list[0].seq[i]
             prot_c = record_list[1].seq[i]
@@ -100,8 +100,8 @@ def exo_f(filepath: str):
     # ◦ Récupération des séquences et assignation de variables pour faciliter la lecture.
     record_list = list(SeqIO.parse(filepath, "fasta"))
     same_chauve, same_pangolin = 0, 0
-    seq_homme, seq_chauve, seq_pangolin = record_list[0].seq, record_list[1].seq, record_list[2].seq
-    for i in range(len(seq_homme)):
+    seq_pangolin, seq_chauve, seq_homme = record_list[0].seq, record_list[1].seq, record_list[2].seq
+    for i in range(len(seq_pangolin)):
         # ◦ Incrémente de un si les deux protéines comparées sont les mêmes.
         same_chauve += 1 if seq_homme[i] == seq_chauve[i] else 0
         same_pangolin += 1 if seq_homme[i] == seq_pangolin[i] else 0
@@ -109,7 +109,7 @@ def exo_f(filepath: str):
     print("  • Taux de conservation pour le pangolin : " + str(round((same_pangolin/len(seq_pangolin))*100, 1)) + "%")
 
 
-def analyse_gene(gene: str, name: str):
+def analyse_gene(gene: str, name: str, type: str):
     if not name in os.listdir("files/"):
         os.mkdir(f"files/{name}")
         
@@ -120,7 +120,10 @@ def analyse_gene(gene: str, name: str):
     print(" Terminé.")
     
     print("Alignement des séquences...", end="")
-    exo_d(f"files/{name}/{name}.fasta", f"files/{name}/aln-{name}.fasta")
+    if type == "mafft":
+        exo_d(f"files/{name}/{name}.fasta", f"files/{name}/aln-{name}.fasta")
+    else:
+        exo_k(f"files/{name}/{name}.fasta", f"files/{name}/aln-{name}.fasta")
     print(" Terminé.")
     
     print("Comparaison des séquences alignées...", end="")
@@ -132,18 +135,7 @@ def analyse_gene(gene: str, name: str):
     
     print("Conversion des gènes au format genbank")
     exo_i(gene, name)
-    print("Analyse exécutée avec succès.")
-
-"""
-H) En observant les résultats obtenus précédemment, nous pouvons noter que la protéine
-subissant la plus grande conservation est celle de la protéine membranaire (codées par
-le gène M) avec 98,2% et 98,6% de conservation.
-Les deux autres protéines comparées ont toutes deux entre 89% et 98% de conservation. 
-Les trois virus sont donc très ressemblant. En calculant un taux de conservation moyen,
-la chauve-souris a un taux de ressemblance de 95.27% et le pangolin 95.37%. Les coronavirus 
-de l'Homme et du pangolin sont donc les plus proches.
-"""
-
+    print(Color.GREEN + "Analyse exécutée avec succès." + Color.RESET)
 
 def exo_i(gene: str, name: str):
     # ◦ Récupération des objets SeqRecord à partir des entrées de 'seq_covid.gb' :
@@ -160,16 +152,51 @@ def exo_i(gene: str, name: str):
 def exo_j(seq1: str, seq2: str):
     print(align.pair(seq1,seq2))
             
+def exo_k(filepath, output):
+    record_list = list(SeqIO.parse(filepath, "fasta"))
+    aligned_seq = []
+    if len(record_list) > 1:
+        first_seq = record_list[0].seq
+        aligned_seq.append(first_seq)
+        for i in range(1, len(record_list)):
+            seq_i = record_list[i].seq
+            if len(first_seq) > len(seq_i):
+                _, alignement = align.pair(first_seq, seq_i)
+            else:
+                alignement, _ = align.pair(first_seq, seq_i)
+            aligned_seq.append(Seq(alignement))
+    else:
+        raise "Un fichier FASTA doit contenir au minimum 2 séquences pour être aligné."
+    align_record_list = []
+    for i in range(len(aligned_seq)):
+        og_record: SeqRecord = record_list[i]
+        align_record_list.append(SeqRecord(aligned_seq[i], og_record.id, og_record.name, og_record.description))
+    SeqIO.write(align_record_list, output, "fasta")
 
 if __name__ == "__main__":
-                
+    
+    #------- ◦ Décommentez le code que vous souhaitez lancer ◦ -------
+    
     # exo_a()
     
-    # analyse_gene("S","spike")
-    # analyse_gene("M","membrane")
-    # analyse_gene("N","nucleocapsid")
+    #------- ◦ Analyse automatisée ◦ -------
+    
+    # for gene in [{"gene":"S","name":"spike"},{"gene":"M","name":"membrane"},{"gene":"N","name":"nucleocapsid"}]:
+        # print("------------------------------------")
+        # print(Color.ORANGE + f"Éxécution de l'analyse du gène " + gene["name"] + " (" + gene["gene"] + ")." + Color.RESET)
+        # analyse_gene(gene["gene"], gene["name"], type="mafft")
+    
+    #------- ◦ Etape avancées ◦ -------
     
     # exo_i("S", "spike")
     # exo_j("GAAAAAAT","GAAT")
+    
+    # exo_k("files/spike/spike.fasta", "files/spike/aln-spike-2.fasta")
+    # exo_k("files/nucleocapsid/nucleocapsid.fasta", "files/nucleocapsid/aln-nucleocapsid-2.fasta")
+    # exo_k("files/membrane/membrane.fasta", "files/membrane/aln-membrane-2.fasta")
+    
+    """ record = list(SeqIO.parse("files/spike/spike.fasta", "fasta"))
+    seq1, seq2 = align.pair(record[0].seq, record[1].seq)
+    print(len(seq1), len(seq2)) """
     
     pass
